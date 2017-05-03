@@ -1,0 +1,25 @@
+rsh arithmetic (keep the -1) vs logical (pad with 0s)
+don't need to worry about that with lsh
+(in Minden's gcc, signed ints do arithmetic, unsigned do logical)
+
+look at Minden's emails concerning stuff you don't need to implement (high/low registers)
+
+Rd
+
+Rt
+
+Rs
+
+^what are those
+
+"immediate value is 16 bit 2s complement value which means ff80 in instruction
+now you are taking that 16 bit 2s complement number and you are adding to a 32 bit 2s complement number
+and to do that you need to extend the sign of the 16 bit number to the 32 bits
+how to take 16 bit 2s complement number and sign extend it?
+
+(int32_t)(int16_t) ImmediateValue //this does a sign extension
+
+also I listen to coldplay"
+-GMinden 2017
+
+Don't need to document given code

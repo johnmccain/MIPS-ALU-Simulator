@@ -1,0 +1,25 @@
+000000 00_0000 R NOOP //no operation (does nothing)
+000000 00_0000 R SLL //shift left logical
+000000 00_0010 R SRL //shift right logical
+000000 00_0011 R SRA //shift right arithmetic
+000000 00_0100 R SLLV //shift left logical variable
+000000 00_0110 R SRLV //shift right logical variable
+000000 01_0000 R MFHI //move from high (need to implement?)
+000000 01_0010 R MFLO //move from low (need to implement?)
+000000 01_1000 R MULT //multiply
+000000 01_1001 R MULTU //multiply unsigned
+000000 01_1010 R DIV //divide
+000000 01_1011 R DIVU //divide unsigned
+000000 10_0000 R ADD //add
+000000 10_0001 R ADDU //add unsigned
+000000 10_0010 R SUB //subtract
+000000 10_0011 R SUBU //subtract unsigned
+000000 10_0100 R AND //bitwise and
+000000 10_0101 R OR //bitwise or
+000000 10_0110 R XOR //bitwise xor
+000000 10_1010 R SLT //set on less than
+000000 10_1011 R SLTU //set on less than unsigned
+001000 x_xxxx I ADDI //add immediate (16 bit constant)
+001001 x_xxxx I ADDIU //add immediate (16 bit constant) unsigned
+001010 x_xxxx I SLTI //set on less than immediate (16 bit constant)
+001011 x_xxxx I SLTIU //set on less than immediate unsigned (16 bit constant)
