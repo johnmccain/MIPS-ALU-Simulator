@@ -45,23 +45,34 @@ extern void ALUSimulator( RegisterFile theRegisterFile,
 
 	bool WrtEnb = false; //set to true to enable writing
 
+	//TODO: verify
+
 	RegisterFile_Read(theRegisterFile, Rs, &Value_S, Rt, &Value_T);
 
 	switch(OpCode) {
 		case OP_ADDI: // ADD IMMEDIATE (with overflow)
 			printf("\n\nOP_ADDI\n");
-			WrtValue = Value_S + ImmediateValue;
+			WrtValue = ((int32_t) Value_S) + (int32_t)(int16_t) ImmediateValue; //cast ImmediateValue to 32bit signed integer
 			WrtAddr = Rt;
 			WrtEnb = true;
 		break;
-		case OP_ADDIU: // ADD IMMEDIATE UNSIGNED
+		case OP_ADDIU: // ADD IMMEDIATE UNSIGNED, DON'T HAVE TO HANDLE OVERFLOW (PER MINDEN'S SPECIFICATION)
 			printf("\n\nOP_ADDIU\n");
+			WrtValue = ((uint32_t) Value_S) + (uint32_t)(uint16_t) ImmediateValue; //cast ImmediateValue to 32bit unsigned integer
+			WrtAddr = Rt;
+			WrtEnb = true;
 		break;
 		case OP_SLTI: // SET ON LESS THAN IMMEDIATE
 			printf("\n\nOP_SLTI\n");
+			WrtAddr = Rt;
+			WrtValue = ((int32_t) Value_S) < (int32_t)(int16_t) ImmediateValue ? 1 : 0; //cast ImmediateValue to 32bit signed integer
+			WrtEnb = true;
 		break;
 		case OP_SLTIU: //SET ON LESS THAN IMMEDIATE UNSIGNED
 			printf("\n\nOP_SLTIU\n");
+			WrtAddr = Rt;
+			WrtValue = ((uint32_t) Value_S) < (uint32_t)(uint16_t) ImmediateValue ? 1 : 0; //cast ImmediateValue to 32bit unsigned integer
+			WrtEnb = true;
 		break;
 		case 0:
 			switch(FunctionCode) {
@@ -115,30 +126,57 @@ extern void ALUSimulator( RegisterFile theRegisterFile,
 				break;
 				case F_ADD:
 					printf("\n\nF_ADD\n");
+					WrtAddr = Rd;
+					WrtValue = ((int32_t) Value_S) + (int32_t) Value_T;
+					WrtEnb = true;
 				break;
-				case F_ADDU:
+				case F_ADDU: // DON'T HAVE TO HANDLE OVERFLOW (PER MINDEN'S SPECIFICATION)
 					printf("\n\nF_ADDU\n");
+					WrtAddr = Rd;
+					WrtValue = ((uint32_t) Value_S) + (uint32_t) Value_T;
+					WrtEnb = true;
 				break;
 				case F_SUB:
 					printf("\n\nF_SUB\n");
+					WrtAddr = Rd;
+					WrtValue = ((int32_t) Value_S) - (int32_t) Value_T;
+					WrtEnb = true;
 				break;
-				case F_SUBU:
+				case F_SUBU: // DON'T HAVE TO HANDLE OVERFLOW (PER MINDEN'S SPECIFICATION)
 					printf("\n\nF_SUBU\n");
+					WrtAddr = Rd;
+					WrtValue = ((uint32_t) Value_S) - (uint32_t) Value_T;
+					WrtEnb = true;
 				break;
 				case F_AND:
 					printf("\n\nF_AND\n");
+					WrtAddr = Rd;
+					WrtValue = Value_S & Value_T;
+					WrtEnb = true;
 				break;
 				case F_OR:
 					printf("\n\nF_OR\n");
+					WrtAddr = Rd;
+					WrtValue = Value_S | Value_T;
+					WrtEnb = true;
 				break;
 				case F_XOR:
 					printf("\n\nF_XOR\n");
+					WrtAddr = Rd;
+					WrtValue = Value_S ^ Value_T;
+					WrtEnb = true;
 				break;
 				case F_SLT:
 					printf("\n\nF_SLT\n");
+					WrtAddr = Rd;
+					WrtValue = ((int32_t) Value_S) < (int32_t) Value_T ? 1 : 0;
+					WrtEnb = true;
 				break;
 				case F_SLTU:
 					printf("\n\nF_SLTU\n");
+					WrtAddr = Rd;
+					WrtValue = ((uint32_t) Value_S) < (uint32_t) Value_T ? 1 : 0;
+					WrtEnb = true;
 				break;
 			}
 		break;
