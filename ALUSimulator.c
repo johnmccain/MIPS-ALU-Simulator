@@ -40,9 +40,19 @@ extern void ALUSimulator( RegisterFile theRegisterFile,
 				FunctionCode,
 				ImmediateValue );
 
+	uint32_t WrtAddr;
+	int32_t Value_S, Value_T, Value_D, WrtValue;
+
+	bool WrtEnb = false; //set to true to enable writing
+
+	RegisterFile_Read(theRegisterFile, Rs, &Value_S, Rt, &Value_T);
+
 	switch(OpCode) {
-		case OP_ADDI: // ADD IMMEDIATE
+		case OP_ADDI: // ADD IMMEDIATE (with overflow)
 			printf("\n\nOP_ADDI\n");
+			WrtValue = Value_S + ImmediateValue;
+			WrtAddr = Rt;
+			WrtEnb = true;
 		break;
 		case OP_ADDIU: // ADD IMMEDIATE UNSIGNED
 			printf("\n\nOP_ADDIU\n");
@@ -55,17 +65,23 @@ extern void ALUSimulator( RegisterFile theRegisterFile,
 		break;
 		case 0:
 			switch(FunctionCode) {
-				// case F_NOOP:
-				// 	printf("\n\nF_NOOP\n");
-				// break;
 				case F_SLL:
 					printf("\n\nF_SLL\n");
+					WrtAddr = Rd;
+					WrtValue = ((uint32_t) Value_T) << ShiftAmt;
+					WrtEnb = true;
 				break;
 				case F_SRL:
 					printf("\n\nF_SRL\n");
+					WrtAddr = Rd;
+					WrtValue = ((uint32_t) Value_T) >> ShiftAmt;
+					WrtEnb = true;
 				break;
 				case F_SRA:
 					printf("\n\nF_SRA\n");
+					WrtAddr = Rd;
+					WrtValue = ((int32_t) Value_T) >> ShiftAmt;
+					WrtEnb = true;
 				break;
 				case F_SLLV:
 					printf("\n\nF_SLLV\n");
@@ -124,5 +140,8 @@ extern void ALUSimulator( RegisterFile theRegisterFile,
 			printf("ERR: UNRECOGNIZED OPCODE\n");
 		break;
 	}
+
+	//write changes
+	RegisterFile_Write(theRegisterFile, WrtEnb, WrtAddr, WrtValue);
 
 }
