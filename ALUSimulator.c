@@ -71,6 +71,12 @@ extern void ALUSimulator( RegisterFile theRegisterFile,
 					WrtValue = ((uint32_t) Value_T) << ShiftAmt;
 					WrtEnb = true;
 				break;
+				case F_SLLV:
+					printf("\n\nF_SLLV\n");
+					WrtAddr = Rd;
+					WrtValue = ((uint32_t) Value_T) << Value_S;
+					WrtEnb = true;
+				break;
 				case F_SRL:
 					printf("\n\nF_SRL\n");
 					WrtAddr = Rd;
@@ -83,29 +89,29 @@ extern void ALUSimulator( RegisterFile theRegisterFile,
 					WrtValue = ((int32_t) Value_T) >> ShiftAmt;
 					WrtEnb = true;
 				break;
-				case F_SLLV:
-					printf("\n\nF_SLLV\n");
-				break;
 				case F_SRLV:
 					printf("\n\nF_SRLV\n");
+					WrtAddr = Rd;
+					WrtValue = ((uint32_t) Value_T) >> Value_S;
+					WrtEnb = true;
 				break;
-				case F_MFHI:
-					printf("\n\nF_MFHI\n");
+				case F_MFHI: //DON'T NEED TO IMPLMENT
+					printf("\n\nF_MFHI\tNOT REQUIRED\n");
 				break;
-				case F_MFLO:
-					printf("\n\nF_MFLO\n");
+				case F_MFLO: //DON'T NEED TO IMPLMENT
+					printf("\n\nF_MFLO\tNOT REQUIRED\n");
 				break;
-				case F_MULT:
-					printf("\n\nF_MULT\n");
+				case F_MULT: //DON'T NEED TO IMPLMENT
+					printf("\n\nF_MULT\tNOT REQUIRED\n");
 				break;
-				case F_MULTU:
-					printf("\n\nF_MULTU\n");
+				case F_MULTU: //DON'T NEED TO IMPLMENT
+					printf("\n\nF_MULTU\tNOT REQUIRED\n");
 				break;
-				case F_DIV:
-					printf("\n\nF_DIV\n");
+				case F_DIV: //DON'T NEED TO IMPLMENT
+					printf("\n\nF_DIV\tNOT REQUIRED\n");
 				break;
-				case F_DIVU:
-					printf("\n\nF_DIVU\n");
+				case F_DIVU: //DON'T NEED TO IMPLMENT
+					printf("\n\nF_DIVU\tNOT REQUIRED\n");
 				break;
 				case F_ADD:
 					printf("\n\nF_ADD\n");
