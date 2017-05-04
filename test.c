@@ -3,7 +3,7 @@
 
 int main() {
 
-	int a, b, c;
+	int32_t a, b, c;
 	a = 0xFFFFFFFF;
 	b = 32;
 	c = -32;
