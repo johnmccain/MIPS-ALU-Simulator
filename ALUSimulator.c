@@ -53,7 +53,7 @@ extern void ALUSimulator( RegisterFile theRegisterFile,
 	RegisterFile_Read(theRegisterFile, Rs, &Value_S, Rt, &Value_T);
 
 	switch(OpCode) {
-		case OP_ADDI: // ADD IMMEDIATE (with overflow)
+		case OP_ADDI: // ADD IMMEDIATE DON'T HAVE TO HANDLE OVERFLOW (PER MINDEN'S SPECIFICATION)
 			#if DEBUG_LOG_OPERATIONS
 			printf("\n\nOP_ADDI\n");
 			#endif
